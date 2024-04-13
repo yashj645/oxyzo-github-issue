@@ -19,26 +19,20 @@ function App() {
   const { nextPage, result: issuesResult } = issuesData || {};
 
   useEffect(() => {
-    // dispatch(fetchOpenIssuesCount());
-    // dispatch(fetchClosedIssuesCount());
-    // dispatch(fetchIssues({ page: 1 }));
-
-    // window.addEventListener("scroll", handleScroll);
+    dispatch(fetchOpenIssuesCount());
+    dispatch(fetchClosedIssuesCount());
+    dispatch(fetchIssues({ page: 1 }));
 
     return () => {
       dispatch(resetIssues());
-      // window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  // const handleScroll = () => {
-  //   if (
-  //     window.innerHeight + document.documentElement.scrollTop !==
-  //     document.documentElement.offsetHeight
-  //   )
-  //     return;
-  //   dispatch(fetchIssues({ page: nextPage }));
-  // };
+  const handleInfiniteScroll = () => {
+    setTimeout(() => {
+      dispatch(fetchIssues({ page: nextPage }));
+    }, 1000);
+  };
 
   return (
     <IssuesList
@@ -46,6 +40,7 @@ function App() {
       nextPage={nextPage}
       loading={isIssuesLoading}
       metaData={metaData}
+      handleInfiniteScroll={handleInfiniteScroll}
     />
   );
 }
