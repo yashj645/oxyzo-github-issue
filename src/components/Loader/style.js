@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 const spin = keyframes`
   to {
@@ -11,6 +11,12 @@ const Loader = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+
+  ${(props) =>
+    props.$isInfinite &&
+    css`
+      height: 100px;
+    `}
 `;
 
 const Spinner = styled.div`
